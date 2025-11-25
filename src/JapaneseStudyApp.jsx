@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { BookOpen, MessageSquare, Award } from 'lucide-react';
+import './App.css'; // make sure your App.css is updated
 
 const JapaneseStudyApp = () => {
   const [mode, setMode] = useState('menu');
@@ -59,50 +59,8 @@ const JapaneseStudyApp = () => {
       { japanese: 'SHIKEN', english: 'Test/Quiz/Exam' },
       { japanese: 'KEITAI DENWA', english: 'Cellular phone' },
       { japanese: 'JUGYOU', english: 'Class' }
-    ],
-    days: [
-      { japanese: 'NICHIYOUBI', english: 'Sunday' },
-      { japanese: 'GETSUYOUBI', english: 'Monday' },
-      { japanese: 'KAYOUBI', english: 'Tuesday' },
-      { japanese: 'SUIYOUBI', english: 'Wednesday' },
-      { japanese: 'MOKUYOUBI', english: 'Thursday' },
-      { japanese: 'KINYOUBI', english: 'Friday' },
-      { japanese: 'DOYOUBI', english: 'Saturday' },
-      { japanese: 'KYOU', english: 'Today' },
-      { japanese: 'ASHITA', english: 'Tomorrow' },
-      { japanese: 'KONGETSU', english: 'This Month' },
-      { japanese: 'RAIGETSU', english: 'Next Month' },
-      { japanese: 'ATO DE', english: 'Later' },
-      { japanese: 'RAISHUU', english: 'Next Week' },
-      { japanese: 'KONSHUU', english: 'This Week' },
-      { japanese: 'RAINEN', english: 'Next Year' },
-      { japanese: 'KOTOSHI', english: 'This Year' }
-    ],
-    numbers: [
-      { japanese: 'ICHI', english: '1' },
-      { japanese: 'NI', english: '2' },
-      { japanese: 'SAN', english: '3' },
-      { japanese: 'SHI/YO', english: '4' },
-      { japanese: 'GO', english: '5' },
-      { japanese: 'ROKU', english: '6' },
-      { japanese: 'NANA/SHICHI', english: '7' },
-      { japanese: 'HACHI', english: '8' },
-      { japanese: 'KYUU', english: '9' },
-      { japanese: 'JUU', english: '10' }
-    ],
-    particles: [
-      { japanese: 'WA', english: 'Topic/Subject marker' },
-      { japanese: 'GA', english: 'Subject/Existence marker' },
-      { japanese: 'WO', english: 'Object marker' },
-      { japanese: 'DE', english: 'Place or means' },
-      { japanese: 'TO', english: 'Connecting nouns' },
-      { japanese: 'NI', english: 'Destination, time' },
-      { japanese: 'KARA', english: 'Starting point or cause' },
-      { japanese: 'MADE', english: 'Endpoint' },
-      { japanese: 'MO', english: 'Also, too' },
-      { japanese: 'YORI', english: 'Comparison marker' },
-      { japanese: 'DEWA/JA', english: 'Negative forms' }
     ]
+    // Add days, numbers, particles as needed
   };
 
   const grammarExamples = [
@@ -132,7 +90,6 @@ const JapaneseStudyApp = () => {
     if (lower.includes('watashi wa') || lower.includes('name')) return 'Nice to meet you! What is your name?';
     if (lower.includes('benkyou') || lower.includes('study')) return 'Great! Do you study every day?';
     if (lower.includes('doko') || lower.includes('where')) return 'I live in Makati. Where are you?';
-    if (lower.includes('youbi') || lower.includes('day')) return 'Today is Saturday. Tomorrow is Sunday.';
     return 'I understand! Keep going!';
   };
 
@@ -144,37 +101,31 @@ const JapaneseStudyApp = () => {
     setChatInput('');
   };
 
-  const wrapperClass = 'min-h-screen bg-white flex items-center justify-center text-orange-600';
-
-  const contentClass = 'w-full max-w-4xl text-center flex flex-col items-center justify-center';
-
   // ---------------- MENU ----------------
   if (mode === 'menu') {
     return (
-      <div className={wrapperClass}>
-        <div className={contentClass}>
-          <h1 className="text-5xl font-bold mb-3">日本語</h1>
-          <h2 className="text-3xl font-bold mb-6">Japanese Exam Helper</h2>
-          <p className="mb-12">Choose a study mode to ace your exam!</p>
+      <div className="wrapper">
+        <div className="content">
+          <h1>日本語</h1>
+          <h2>Japanese Exam Helper</h2>
+          <p>Choose a study mode to ace your exam!</p>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <button onClick={() => setMode('flashcards')} className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-105 text-orange-600">
-              <BookOpen className="w-12 h-12 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Flashcards</h3>
-              <p className="text-sm">Study vocabulary & grammar</p>
-            </button>
-
-            <button onClick={() => setMode('chat')} className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-105 text-orange-600">
-              <MessageSquare className="w-12 h-12 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Practice Chat</h3>
-              <p className="text-sm">Simple Japanese conversation</p>
-            </button>
-
-            <button onClick={() => setMode('grammar')} className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all hover:scale-105 text-orange-600">
-              <Award className="w-12 h-12 mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Grammar Guide</h3>
-              <p className="text-sm">Key patterns & examples</p>
-            </button>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
+            <div className="card" onClick={() => setMode('flashcards')}>
+              <BookOpen size={48} />
+              <h3>Flashcards</h3>
+              <p>Study vocabulary & grammar</p>
+            </div>
+            <div className="card" onClick={() => setMode('chat')}>
+              <MessageSquare size={48} />
+              <h3>Practice Chat</h3>
+              <p>Simple Japanese conversation</p>
+            </div>
+            <div className="card" onClick={() => setMode('grammar')}>
+              <Award size={48} />
+              <h3>Grammar Guide</h3>
+              <p>Key patterns & examples</p>
+            </div>
           </div>
         </div>
       </div>
@@ -185,27 +136,16 @@ const JapaneseStudyApp = () => {
   if (mode === 'flashcards') {
     if (!category) {
       return (
-        <div className={wrapperClass}>
-          <div className={contentClass}>
-            <button onClick={() => setMode('menu')} className="mb-6 font-semibold">
-              ← Back to Menu
-            </button>
-            <h2 className="text-3xl font-bold mb-8">Choose Category</h2>
-
-            <div className="grid md:grid-cols-2 gap-4">
+        <div className="wrapper">
+          <div className="content">
+            <button onClick={() => setMode('menu')}>← Back to Menu</button>
+            <h2>Choose Category</h2>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
               {Object.keys(studyData).map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => {
-                    setCategory(cat);
-                    setCurrentCard(0);
-                    setShowAnswer(false);
-                  }}
-                  className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-105 text-orange-600"
-                >
-                  <h3 className="text-xl font-bold capitalize mb-2">{cat}</h3>
-                  <p className="text-sm">{studyData[cat].length} items</p>
-                </button>
+                <div key={cat} className="card" onClick={() => { setCategory(cat); setCurrentCard(0); setShowAnswer(false); }}>
+                  <h3>{cat}</h3>
+                  <p>{studyData[cat].length} items</p>
+                </div>
               ))}
             </div>
           </div>
@@ -217,34 +157,19 @@ const JapaneseStudyApp = () => {
     const current = data[currentCard];
 
     return (
-      <div className={wrapperClass}>
-        <div className="w-full max-w-2xl text-center flex flex-col items-center justify-center">
-          <button onClick={() => { setCategory(''); setCurrentCard(0); }} className="mb-6 font-semibold">
-            ← Back to Categories
-          </button>
-
-          <div className="bg-white rounded-2xl shadow-2xl p-8 min-h-[24rem] flex flex-col items-center justify-center text-orange-600 w-full">
-            <div className="mb-4">
-              <span className="text-sm">{currentCard + 1} / {data.length}</span>
+      <div className="wrapper">
+        <div className="content">
+          <button onClick={() => { setCategory(''); setCurrentCard(0); }}>← Back to Categories</button>
+          <div className="card" style={{ minHeight: '24rem' }}>
+            <div>{currentCard + 1} / {data.length}</div>
+            <div onClick={() => setShowAnswer(!showAnswer)} style={{ cursor: 'pointer', flex: 1 }}>
+              <h3>{showAnswer ? current.english : current.japanese}</h3>
+              {!showAnswer && <p>Click to reveal</p>}
             </div>
-
-            <div onClick={() => setShowAnswer(!showAnswer)} className="cursor-pointer flex-1 flex items-center justify-center w-full">
-              <div>
-                <h3 className="text-5xl font-bold mb-8">{showAnswer ? current.english : current.japanese}</h3>
-                {!showAnswer && <p className="text-sm">Click to reveal</p>}
-              </div>
-            </div>
-
-            <div className="flex justify-center items-center gap-4 mt-6">
-              <button onClick={handlePrevCard} className="px-6 py-3 rounded-lg font-semibold border border-orange-600">
-                Previous
-              </button>
-              <button onClick={() => setShowAnswer(!showAnswer)} className="px-8 py-3 rounded-lg font-semibold bg-orange-600 text-white">
-                {showAnswer ? 'Hide' : 'Show'} Answer
-              </button>
-              <button onClick={handleNextCard} className="px-6 py-3 rounded-lg font-semibold border border-orange-600">
-                Next
-              </button>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem' }}>
+              <button onClick={handlePrevCard}>Previous</button>
+              <button onClick={() => setShowAnswer(!showAnswer)}>{showAnswer ? 'Hide' : 'Show'} Answer</button>
+              <button onClick={handleNextCard}>Next</button>
             </div>
           </div>
         </div>
@@ -255,19 +180,16 @@ const JapaneseStudyApp = () => {
   // ---------------- GRAMMAR ----------------
   if (mode === 'grammar') {
     return (
-      <div className={wrapperClass}>
-        <div className={contentClass}>
-          <button onClick={() => setMode('menu')} className="mb-6 font-semibold">
-            ← Back to Menu
-          </button>
-          <h2 className="text-3xl font-bold mb-8">Grammar Patterns</h2>
-
-          <div className="space-y-4 mb-8 w-full">
+      <div className="wrapper">
+        <div className="content">
+          <button onClick={() => setMode('menu')}>← Back to Menu</button>
+          <h2>Grammar Patterns</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
             {grammarExamples.map((item, idx) => (
-              <div key={idx} className="bg-white rounded-xl shadow-lg p-6 text-center text-orange-600">
-                <div className="font-bold text-lg mb-2">{item.pattern}</div>
-                <div className="text-xl mb-2">{item.example}</div>
-                <div className="italic">{item.translation}</div>
+              <div key={idx} className="card">
+                <div style={{ fontWeight: 'bold' }}>{item.pattern}</div>
+                <div style={{ fontSize: '1.2rem' }}>{item.example}</div>
+                <div style={{ fontStyle: 'italic' }}>{item.translation}</div>
               </div>
             ))}
           </div>
@@ -279,36 +201,42 @@ const JapaneseStudyApp = () => {
   // ---------------- CHAT ----------------
   if (mode === 'chat') {
     return (
-      <div className={wrapperClass}>
-        <div className={contentClass}>
-          <button onClick={() => setMode('menu')} className="mb-6 font-semibold">
-            ← Back to Menu
-          </button>
+      <div className="wrapper">
+        <div className="content">
+          <button onClick={() => setMode('menu')}>← Back to Menu</button>
+          <div className="card" style={{ width: '100%', maxWidth: '600px' }}>
+            <h2>Practice Japanese</h2>
+            <p>Try basic phrases! Start with: "Konnichiwa" or "Watashi wa [your name] desu"</p>
 
-          <div className="bg-white rounded-2xl shadow-2xl p-6 text-orange-600 w-full">
-            <h2 className="text-2xl font-bold mb-4">Practice Japanese</h2>
-            <p className="mb-6 text-sm">Try basic phrases! Start with: "Konnichiwa" or "Watashi wa [your name] desu"</p>
-
-            <div className="bg-gray-50 p-4 h-96 overflow-y-auto rounded-lg mb-4 space-y-2 text-left text-orange-600">
+            <div style={{ backgroundColor: '#f9f9f9', padding: '1rem', height: '300px', overflowY: 'auto', borderRadius: '0.5rem', marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {conversation.map((msg, idx) => (
-                <div key={idx} className={`p-2 rounded-lg ${msg.type === 'user' ? 'bg-orange-100 text-orange-900 text-right' : 'bg-white text-orange-600 text-left'}`}>
+                <div key={idx} style={{
+                  textAlign: 'center',
+                  padding: '0.5rem 1rem',
+                  backgroundColor: msg.type === 'user' ? '#f97316' : '#ffffff',
+                  color: msg.type === 'user' ? '#ffffff' : '#f97316',
+                  borderRadius: '1rem',
+                  alignSelf: msg.type === 'user' ? 'flex-end' : 'flex-start',
+                  maxWidth: '80%',
+                  margin: '0 auto',
+                  wordBreak: 'break-word'
+                }}>
                   {msg.text}
                 </div>
               ))}
             </div>
 
-            <div className="flex gap-2 justify-center">
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type="text"
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleChatSubmit()}
-                className="flex-1 p-3 border border-orange-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 text-orange-600"
+                className="input-chat"
                 placeholder="Type your message..."
+                style={{ flex: 1, padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #f97316', textAlign: 'center' }}
               />
-              <button onClick={handleChatSubmit} className="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold">
-                Send
-              </button>
+              <button onClick={handleChatSubmit} style={{ backgroundColor: '#f97316', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem' }}>Send</button>
             </div>
           </div>
         </div>
@@ -320,9 +248,3 @@ const JapaneseStudyApp = () => {
 };
 
 export default JapaneseStudyApp;
-
-
-
-
-
-
