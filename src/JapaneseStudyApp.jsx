@@ -151,6 +151,7 @@ const JapaneseStudyApp = () => {
           <h1>日本語</h1>
           <h2>Japanese Exam Helper</h2>
           <p>Choose a study mode to ace your exam!</p>
+
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
             <div className="card" onClick={() => setMode('flashcards')}>
               <BookOpen size={48} />
@@ -179,7 +180,7 @@ const JapaneseStudyApp = () => {
       return (
         <div className="wrapper">
           <div className="content">
-            <button className="back-button" onClick={() => setMode('menu')}>← Back to Menu</button>
+            <button onClick={() => setMode('menu')}>← Back to Menu</button>
             <h2>Choose Category</h2>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
               {Object.keys(studyData).map((cat) => (
@@ -200,7 +201,7 @@ const JapaneseStudyApp = () => {
     return (
       <div className="wrapper">
         <div className="content">
-          <button className="back-button" onClick={() => { setCategory(''); setCurrentCard(0); }}>← Back to Categories</button>
+          <button onClick={() => { setCategory(''); setCurrentCard(0); }}>← Back to Categories</button>
           <div className="card" style={{ minHeight: '24rem' }}>
             <div>{currentCard + 1} / {data.length}</div>
             <div onClick={() => setShowAnswer(!showAnswer)} style={{ cursor: 'pointer', flex: 1 }}>
@@ -218,36 +219,68 @@ const JapaneseStudyApp = () => {
     );
   }
 
-  // ---------------- GRAMMAR ----------------
-  if (mode === 'grammar') {
-    return (
-      <div className="wrapper">
-        <div className="content">
-          <button className="back-button" onClick={() => setMode('menu')}>← Back to Menu</button>
-          <h2>Grammar Patterns</h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', maxWidth: '600px', margin: '0 auto' }}>
-            {grammarExamples.map((item, idx) => (
-              <div key={idx} className="card" style={{ padding: '1rem', borderRadius: '1rem', backgroundColor: '#fff', textAlign: 'center', border: '1px solid #f97316' }}>
-                <div style={{ fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '0.5rem' }}>{item.pattern}</div>
-                <div style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{item.example}</div>
-                <div style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>{item.translation}</div>
-              </div>
-            ))}
-          </div>
+// ---------------- GRAMMAR ----------------
+if (mode === 'grammar') {
+  return (
+    <div className="wrapper" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+      {/* SIDE BACK BUTTON */}
+      <button 
+        onClick={() => setMode('menu')}
+        style={{
+          position: 'absolute',
+          left: '1rem',
+          top: '1rem',
+          padding: '0.5rem 1rem',
+          borderRadius: '0.5rem',
+          border: '1px solid #f97316',
+          backgroundColor: '#fff',
+          color: '#f97316',
+          fontWeight: 'bold',
+          cursor: 'pointer'
+        }}
+      >
+        ← Back to Menu
+      </button>
+
+      <div className="content" style={{ maxWidth: '900px', margin: '2rem auto', width: '100%' }}>
+        <h2 style={{ textAlign: 'center' }}>Grammar Patterns</h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
+          {grammarExamples.map((item, idx) => (
+            <div 
+              key={idx} 
+              className="card" 
+              style={{
+                flex: '1 1 calc(30% - 1rem)', // 3 cards per row
+                minWidth: '200px',
+                maxWidth: '250px',
+                padding: '1rem',
+                borderRadius: '1rem',
+                backgroundColor: '#fff',
+                textAlign: 'center',
+                border: '1px solid #f97316'
+              }}
+            >
+              <div style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>{item.pattern}</div>
+              <div style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{item.example}</div>
+              <div style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>{item.translation}</div>
+            </div>
+          ))}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   // ---------------- CHAT ----------------
   if (mode === 'chat') {
     return (
       <div className="wrapper">
         <div className="content">
-          <button className="back-button" onClick={() => setMode('menu')}>← Back to Menu</button>
+          <button onClick={() => setMode('menu')}>← Back to Menu</button>
           <div className="card" style={{ width: '100%', maxWidth: '600px' }}>
             <h2>Practice Japanese</h2>
             <p>Try basic phrases! Start with: "Konnichiwa" or "Watashi wa [your name] desu"</p>
+
             <div style={{ backgroundColor: '#f9f9f9', padding: '1rem', height: '300px', overflowY: 'auto', borderRadius: '0.5rem', marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {conversation.map((msg, idx) => (
                 <div key={idx} style={{
@@ -265,6 +298,7 @@ const JapaneseStudyApp = () => {
                 </div>
               ))}
             </div>
+
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
                 type="text"
