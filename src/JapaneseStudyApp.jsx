@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, MessageSquare, Award } from 'lucide-react';
+import { Analytics } from "@vercel/analytics/react";
 import './App.css';
 
 const JapaneseStudyApp = () => {
@@ -88,7 +89,29 @@ const JapaneseStudyApp = () => {
       { japanese: 'NANA/SHICHI', english: '7' },
       { japanese: 'HACHI', english: '8' },
       { japanese: 'KYUU', english: '9' },
-      { japanese: 'JUU', english: '10' }
+      { japanese: 'JUU', english: '10' },
+      { japanese: 'NIJUU', english: '20' },
+      { japanese: 'SANJUU', english: '30' },
+      { japanese: 'YONJUU', english: '40' },
+      { japanese: 'GOJUU', english: '50' },
+      { japanese: 'ROKUJUU', english: '60' },
+      { japanese: 'NANAJUU', english: '70' },
+      { japanese: 'HACHIJUU', english: '80' },
+      { japanese: 'KYUUJUU', english: '90' },
+      { japanese: 'HYAKU', english: '100' }, 
+      { japanese: 'NIHYAKU', english: '200' }, 
+      { japanese: 'SANBYAKU', english: '300' }, 
+      { japanese: 'YONHYAKU', english: '400' }, 
+      { japanese: 'GOHYAKU', english: '500' }, 
+      { japanese: 'ROPPYAKU', english: '600' }, 
+      { japanese: 'NANAHYAKU', english: '700' }, 
+      { japanese: 'HAPPYAKU', english: '800' }, 
+      { japanese: 'KYUUHYAKU', english: '900' }, 
+      { japanese: 'SEN', english: '1000' }, 
+      { japanese: 'ICHIMAN', english: '10,000' },
+      { japanese: 'JUUMAN', english: '100,000' },
+      { japanese: 'HYAKUMAN', english: '1,000,000 (1 million)' },
+      { japanese: 'ISSHOU', english: '1,000,000,000 (1 billion)' }
     ],
     particles: [
       { japanese: 'WA', english: 'Topic/Subject marker' },
@@ -170,6 +193,8 @@ const JapaneseStudyApp = () => {
             </div>
           </div>
         </div>
+
+        <Analytics />
       </div>
     );
   }
@@ -182,15 +207,22 @@ const JapaneseStudyApp = () => {
           <div className="content">
             <button onClick={() => setMode('menu')}>← Back to Menu</button>
             <h2>Choose Category</h2>
+
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
               {Object.keys(studyData).map((cat) => (
-                <div key={cat} className="card" onClick={() => { setCategory(cat); setCurrentCard(0); setShowAnswer(false); }}>
+                <div
+                  key={cat}
+                  className="card"
+                  onClick={() => { setCategory(cat); setCurrentCard(0); setShowAnswer(false); }}
+                >
                   <h3>{cat}</h3>
                   <p>{studyData[cat].length} items</p>
                 </div>
               ))}
             </div>
           </div>
+
+          <Analytics />
         </div>
       );
     }
@@ -202,74 +234,90 @@ const JapaneseStudyApp = () => {
       <div className="wrapper">
         <div className="content">
           <button onClick={() => { setCategory(''); setCurrentCard(0); }}>← Back to Categories</button>
+
           <div className="card" style={{ minHeight: '24rem' }}>
             <div>{currentCard + 1} / {data.length}</div>
+
             <div onClick={() => setShowAnswer(!showAnswer)} style={{ cursor: 'pointer', flex: 1 }}>
               <h3>{showAnswer ? current.english : current.japanese}</h3>
               {!showAnswer && <p>Click to reveal</p>}
             </div>
+
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1rem' }}>
               <button onClick={handlePrevCard}>Previous</button>
-              <button onClick={() => setShowAnswer(!showAnswer)}>{showAnswer ? 'Hide' : 'Show'} Answer</button>
+              <button onClick={() => setShowAnswer(!showAnswer)}>
+                {showAnswer ? 'Hide' : 'Show'} Answer
+              </button>
               <button onClick={handleNextCard}>Next</button>
             </div>
           </div>
         </div>
+
+        <Analytics />
       </div>
     );
   }
 
-// ---------------- GRAMMAR ----------------
-if (mode === 'grammar') {
-  return (
-    <div className="wrapper" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-      {/* SIDE BACK BUTTON */}
-      <button 
-        onClick={() => setMode('menu')}
-        style={{
-          position: 'absolute',
-          left: '1rem',
-          top: '1rem',
-          padding: '0.5rem 1rem',
-          borderRadius: '0.5rem',
-          border: '1px solid #f97316',
-          backgroundColor: '#fff',
-          color: '#f97316',
-          fontWeight: 'bold',
-          cursor: 'pointer'
-        }}
-      >
-        ← Back to Menu
-      </button>
+  // ---------------- GRAMMAR ----------------
+  if (mode === 'grammar') {
+    return (
+      <div className="wrapper" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+        
+        <button 
+          onClick={() => setMode('menu')}
+          style={{
+            position: 'absolute',
+            left: '1rem',
+            top: '1rem',
+            padding: '0.5rem 1rem',
+            borderRadius: '0.5rem',
+            border: '1px solid #f97316',
+            backgroundColor: '#fff',
+            color: '#f97316',
+            fontWeight: 'bold',
+            cursor: 'pointer'
+          }}
+        >
+          ← Back to Menu
+        </button>
 
-      <div className="content" style={{ maxWidth: '900px', margin: '2rem auto', width: '100%' }}>
-        <h2 style={{ textAlign: 'center' }}>Grammar Patterns</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
-          {grammarExamples.map((item, idx) => (
-            <div 
-              key={idx} 
-              className="card" 
-              style={{
-                flex: '1 1 calc(30% - 1rem)', // 3 cards per row
-                minWidth: '200px',
-                maxWidth: '250px',
-                padding: '1rem',
-                borderRadius: '1rem',
-                backgroundColor: '#fff',
-                textAlign: 'center',
-                border: '1px solid #f97316'
-              }}
-            >
-              <div style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>{item.pattern}</div>
-              <div style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>{item.example}</div>
-              <div style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>{item.translation}</div>
-            </div>
-          ))}
+        <div className="content" style={{ maxWidth: '900px', margin: '2rem auto', width: '100%' }}>
+          <h2 style={{ textAlign: 'center' }}>Grammar Patterns</h2>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
+            {grammarExamples.map((item, idx) => (
+              <div 
+                key={idx}
+                className="card"
+                style={{
+                  flex: '1 1 calc(30% - 1rem)',
+                  minWidth: '200px',
+                  maxWidth: '250px',
+                  padding: '1rem',
+                  borderRadius: '1rem',
+                  backgroundColor: '#fff',
+                  textAlign: 'center',
+                  border: '1px solid #f97316'
+                }}
+              >
+                <div style={{ fontWeight: 'bold', fontSize: '1.1rem', marginBottom: '0.5rem' }}>
+                  {item.pattern}
+                </div>
+                <div style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>
+                  {item.example}
+                </div>
+                <div style={{ fontStyle: 'italic', fontSize: '0.9rem' }}>
+                  {item.translation}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+
+        <Analytics />
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   // ---------------- CHAT ----------------
   if (mode === 'chat') {
@@ -277,23 +325,37 @@ if (mode === 'grammar') {
       <div className="wrapper">
         <div className="content">
           <button onClick={() => setMode('menu')}>← Back to Menu</button>
+
           <div className="card" style={{ width: '100%', maxWidth: '600px' }}>
             <h2>Practice Japanese</h2>
             <p>Try basic phrases! Start with: "Konnichiwa" or "Watashi wa [your name] desu"</p>
 
-            <div style={{ backgroundColor: '#f9f9f9', padding: '1rem', height: '300px', overflowY: 'auto', borderRadius: '0.5rem', marginBottom: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <div style={{
+              backgroundColor: '#f9f9f9',
+              padding: '1rem',
+              height: '300px',
+              overflowY: 'auto',
+              borderRadius: '0.5rem',
+              marginBottom: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.5rem'
+            }}>
               {conversation.map((msg, idx) => (
-                <div key={idx} style={{
-                  textAlign: 'center',
-                  padding: '0.5rem 1rem',
-                  backgroundColor: msg.type === 'user' ? '#f97316' : '#ffffff',
-                  color: msg.type === 'user' ? '#ffffff' : '#f97316',
-                  borderRadius: '1rem',
-                  alignSelf: msg.type === 'user' ? 'flex-end' : 'flex-start',
-                  maxWidth: '80%',
-                  margin: '0 auto',
-                  wordBreak: 'break-word'
-                }}>
+                <div
+                  key={idx}
+                  style={{
+                    textAlign: 'center',
+                    padding: '0.5rem 1rem',
+                    backgroundColor: msg.type === 'user' ? '#f97316' : '#ffffff',
+                    color: msg.type === 'user' ? '#ffffff' : '#f97316',
+                    borderRadius: '1rem',
+                    alignSelf: msg.type === 'user' ? 'flex-end' : 'flex-start',
+                    maxWidth: '80%',
+                    margin: '0 auto',
+                    wordBreak: 'break-word'
+                  }}
+                >
                   {msg.text}
                 </div>
               ))}
@@ -307,12 +369,31 @@ if (mode === 'grammar') {
                 onKeyDown={(e) => e.key === 'Enter' && handleChatSubmit()}
                 className="input-chat"
                 placeholder="Type your message..."
-                style={{ flex: 1, padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #f97316', textAlign: 'center' }}
+                style={{
+                  flex: 1,
+                  padding: '0.5rem',
+                  borderRadius: '0.5rem',
+                  border: '1px solid #f97316',
+                  textAlign: 'center'
+                }}
               />
-              <button onClick={handleChatSubmit} style={{ backgroundColor: '#f97316', color: '#fff', border: 'none', padding: '0.5rem 1rem', borderRadius: '0.5rem' }}>Send</button>
+              <button
+                onClick={handleChatSubmit}
+                style={{
+                  backgroundColor: '#f97316',
+                  color: '#fff',
+                  border: 'none',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '0.5rem'
+                }}
+              >
+                Send
+              </button>
             </div>
           </div>
         </div>
+
+        <Analytics />
       </div>
     );
   }
